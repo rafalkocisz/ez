@@ -15,4 +15,4 @@ All ez libraries are released under the [MIT License](https://opensource.org/lic
 | Library | Description |
 |---------|-------------|
 | [ezregex](https://github.com/rafalkocisz/ezregex) | Minimal regex matching library |
-| *(more coming)* | |
+| [ezcli](https://github.com/rafalkocisz/ezcli) | Minimal command line argument parsing library |
