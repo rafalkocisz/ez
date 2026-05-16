@@ -1,0 +1,103 @@
+# ez<name> — Project Constitution
+
+> Non-domain-specific style rules (Orthodox C++, code formatting, testing, build options,
+> benchmarking, sanitizers, fuzzing, naming, repository layout) live in **[ez/EZ.md](ez/EZ.md)**
+> and apply to this project in full. This file contains only ez<name>-specific decisions.
+
+## Purpose
+[One paragraph: what the library does, what it explicitly does not do, key constraints
+(e.g. ASCII-only, no allocations, trusted callers).]
+
+## Public API
+
+```cpp
+namespace ez {
+
+// [param]  — [description]
+// [param]  — [description]
+// [output] — if non-null: [filled with X on success], cleared on every call
+//            if nullptr (default): [proceeds normally, output discarded]
+//
+// Returns:  0  — success (use EZ_<NAME>_MATCH)
+//          >0  — defined negative result (use EZ_<NAME>_NO_MATCH)
+//          <0  — invalid input / error (use EZ_<NAME>_ERR_* codes)
+[return type] <name>_[verb](const char* input,
+                            [additional params],
+                            [OutputType]* output = nullptr);
+
+} // namespace ez
+```
+
+## Supported [Syntax / Behaviour]
+[Domain-specific table: inputs, tokens, operations, or flags the library handles.]
+
+| [Input] | [Meaning] |
+|---------|-----------|
+| ...     | ...       |
+
+**Not supported:** [explicit list of out-of-scope inputs or behaviours.]
+
+## [Processing] Semantics
+- [Key behavioural contract — e.g. substring vs. full match, left-to-right, greedy.]
+- [Output lifetime / ownership rules.]
+- [Any invariants the caller must uphold.]
+
+## Return / Error codes
+
+```cpp
+#define EZ_<NAME>_MAX_[ITEMS]  16   // [what it bounds]; override before including
+
+#define EZ_<NAME>_MATCH         0   // success
+#define EZ_<NAME>_NO_MATCH      1   // defined negative result
+#define EZ_<NAME>_ERR_SYNTAX   -1   // generic catch-all (reserved; not returned by current code)
+// add specific errors at -2, -3, … one code per class of error
+```
+
+## Coding Standards
+See [EZ.md § Code Style](ez/EZ.md#code-style--orthodox-c). Domain-specific addition:
+[any library-specific constraint, e.g. internal state bounded by EZ_<NAME>_MAX_*.]
+
+## Naming Conventions
+See [EZ.md § Naming Conventions](ez/EZ.md#naming-conventions) for the full table and
+rationale. ez<name>-specific instantiation:
+
+| Element | Name |
+|---------|------|
+| Namespace | `ez` |
+| Public function | `ez::<name>_[verb]` |
+| Return-code macros | `EZ_<NAME>_MATCH`, `EZ_<NAME>_NO_MATCH`, `EZ_<NAME>_ERR_*` |
+| Compile-time limit | `EZ_<NAME>_MAX_[ITEMS]` |
+| White-box testing flag | `EZ_<NAME>_TESTING` |
+| CMake options | `EZ<NAME>_BUILD_TESTS`, `EZ<NAME>_BUILD_BENCHMARKS`, `EZ<NAME>_SANITIZE`, `EZ<NAME>_BUILD_FUZZ` |
+
+## Architecture
+- [Key design decision — e.g. single-pass, recursive-descent, no IR.]
+- Source files: `ez_<name>.h`, `ez_<name>.cpp`.
+- Unit tests: `tests/test_ez_<name>.cpp` using the **doctest** framework.
+- Build system: CMake ≥ 3.20.
+
+## Repository Layout
+Follows the canonical ez layout from [EZ.md § Repository Layout](ez/EZ.md#repository-layout)
+in full, including `benchmarks/` and `fuzz/`.
+
+## Commands
+
+```sh
+# Configure + build (normal)
+cmake -B build && cmake --build build
+
+# Run tests
+ctest --test-dir build
+
+# Sanitizer build (Clang, WSL2/Linux)
+cmake -B build-san -DEZ<NAME>_SANITIZE=ON -DCMAKE_CXX_COMPILER=clang++
+cmake --build build-san && ./build-san/tests/test_ez_<name>
+
+# Fuzz build (Clang, WSL2/Linux)
+cmake -B build-fuzz -DEZ<NAME>_BUILD_FUZZ=ON -DCMAKE_CXX_COMPILER=clang++
+cmake --build build-fuzz
+./build-fuzz/fuzz/fuzz_ez_<name> fuzz/corpus/ -runs=500000
+```
+
+## Out of Scope
+- [Explicit list of things this library will never do.]
