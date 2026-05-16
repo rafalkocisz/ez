@@ -251,6 +251,7 @@ ez_<name>/
 | Public classes / structs | `PascalCase` inside `ez::` | `ez::Span`, `ez::Regex` |
 | Public macros (return codes) | `EZ_<LIBRARY>_<CONDITION>` | `EZ_REGEX_MATCH`, `EZ_REGEX_ERR_ESCAPE` |
 | Compile-time limits | `EZ_<LIBRARY>_MAX_<THING>` | `EZ_REGEX_MAX_CAPTURES` |
+| Private member variables | `snake_case` with trailing `_` | `flags_`, `options_`, `list_name_` |
 | Internal functions | `snake_case`, verb-first, `static` linkage | `match_here`, `parse_braces` |
 | Internal structs | `PascalCase`, no `ez::` prefix | `CaptureState`, `CaptureGroup` |
 | White-box test hooks | `_test_<name>`, compiled under `EZ_<LIBRARY>_TESTING` | `_test_parse_braces` |
