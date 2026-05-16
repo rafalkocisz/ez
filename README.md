@@ -6,6 +6,10 @@ Shared coding standards and conventions for the ez family of C++ libraries.
 
 Each ez library is a small, focused, dependency-free C++ component built to solve one problem well. Rather than repeating the same style rules, naming conventions, and architectural decisions in every repository, this repo holds them in a single place. All ez libraries include `ez` as a submodule and refer to `EZ.md` as their non-domain-specific constitution.
 
+## License
+
+All ez libraries are released under the [MIT License](https://opensource.org/licenses/MIT).
+
 ## Libraries
 
 | Library | Description |
