@@ -67,6 +67,7 @@ rationale. ez<name>-specific instantiation:
 | Public function | `ez::<name>_[verb]` |
 | Return-code macros | `EZ_<NAME>_MATCH`, `EZ_<NAME>_NO_MATCH`, `EZ_<NAME>_ERR_*` |
 | Compile-time limit | `EZ_<NAME>_MAX_[ITEMS]` |
+| Private member variables | `snake_case_` (trailing underscore) |
 | White-box testing flag | `EZ_<NAME>_TESTING` |
 | CMake options | `EZ<NAME>_BUILD_TESTS`, `EZ<NAME>_BUILD_BENCHMARKS`, `EZ<NAME>_SANITIZE`, `EZ<NAME>_BUILD_FUZZ` |
 
