@@ -7,8 +7,9 @@ Each member follows these rules unless the domain gives a specific reason not to
 
 ## Philosophy
 
-- **One job, done simply.** An ez library solves a single, well-scoped problem. No
-  scope creep; the out-of-scope list is as important as the feature list.
+- **One job, done simply.** An ez library solves a single, well-scoped problem — scope
+  may vary, but it is always clearly bounded. No scope creep; the out-of-scope list is
+  as important as the feature list.
 - **Zero dependencies.** The library ships as a single header + source pair. No third-party
   runtime dependencies; test/bench/fuzz tooling is kept strictly outside the public API.
 - **Trusted callers.** Ez libraries target embedded use in larger applications with
@@ -39,8 +40,8 @@ Each member follows these rules unless the domain gives a specific reason not to
 | Exceptions | Disabled — no `throw`, no `try`/`catch` |
 | RTTI | Disabled — no `dynamic_cast`, no `typeid` |
 | Heap | No `new`/`delete`, no `malloc`/`free` inside the library core |
-| STL containers | Not used inside the implementation; `std::string_view` as a thin view type is acceptable |
-| Internal state | Fixed-size stack arrays bounded by a compile-time constant (e.g. `EZ_<NAME>_MAX_ITEMS`) |
+| STL containers | Avoid containers that allocate memory in performance-sensitive or memory-constrained contexts; use judgment otherwise. `std::string_view` as a thin view type is always acceptable |
+| Internal state | Fixed-size stack arrays bounded by a compile-time constant (e.g. `EZ_<NAME>_MAX_ITEMS`) preferred where memory management matters |
 | Inheritance | No multiple inheritance; no virtual functions in hot paths |
 | Functions | Short, flat, named after what they do; no multi-level nesting |
 | Comments | Only where the *why* is non-obvious — hidden constraint, workaround, subtle invariant |
