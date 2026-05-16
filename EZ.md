@@ -222,7 +222,7 @@ Sections in order:
 ez_<name>/
   CMakeLists.txt
   .clang-format          code-formatting rules (clang-format)
-  EZ.md                  ← this file (or a reference to a shared copy)
+  ez/                    ← ez standards submodule (EZ.md lives here)
   ez_<name>.h             public API + error codes
   ez_<name>.cpp           implementation
   CLAUDE.md              AI assistant project constitution
